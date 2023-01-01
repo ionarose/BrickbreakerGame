@@ -1,6 +1,3 @@
-
-
-
 let ball; // Game object for the ball
 let paddle; // Game object for the paddle
 let bricks; // Game object for the bricks
@@ -45,7 +42,7 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-breakout.js;
+
 
 function preload() {
   //this references current scene, first argument is key for asset
