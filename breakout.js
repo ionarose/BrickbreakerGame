@@ -112,7 +112,7 @@ livesText = this.add
 // hide at beginning with the setVisible method.
 
 gameOverText = this.add
-.dom(400, 300, 'div', style, 'Phaser 3')
+//.dom(400, 300, 'div', style, 'Phaser 3')
   .text(
     this.cameras.main.centerX,
     this.cameras.main.centerY,
