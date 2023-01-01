@@ -1,17 +1,19 @@
-let ball; // Game object for the ball
-let paddle; // Game object for the paddle
-let bricks; // Game object for the bricks
-let scoreText; // Game object for showing score
-let livesText; // Game object for showing lives
-let startButton; // Game object for the start button
-let gameOverText; // Game object for showing "Game Over!"
-let wonTheGameText; // Game object for showing "You won the game!"
-let rotation; // Flag will be used to define which direction the ball should rotate
+//initialise game objects
 
-let score = 0; // Variable holding the number of scores
-let lives = 3; // Variable holding the remaining lives
+let ball; 
+let paddle; 
+let bricks; 
+let scoreText; 
+let livesText; 
+let startButton; 
+let gameOverText;
+let wonTheGameText; 
+let rotation; 
 
-// We are going to use these styles for texts
+let score = 0; 
+let lives = 3; 
+
+// set text style as an oject to reuse
 const textStyle = {
   font: "bold 18px Arial",
   fill: "#FFF",
@@ -25,7 +27,7 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      // debug: true - Set debug: true if you want collision boxes to be drawn
+      // debug: true - for collision boxes
       checkCollision: {
         up: true,
         down: false,
@@ -101,7 +103,7 @@ function create() {
     .text(
       this.cameras.main.centerX,
       this.cameras.main.centerY,
-      "The tits have feasted",
+      "The birds starved to death :(",
       textStyle
     )
     .setOrigin(0.5)
@@ -113,7 +115,7 @@ function create() {
     .text(
       this.cameras.main.centerX,
       this.cameras.main.centerY,
-      "You won the game!",
+      "the birds have feasted",
       textStyle
     )
     .setOrigin(0.5)
@@ -128,8 +130,8 @@ function create() {
 
   // move paddle => add event listener on the whole scene with input.on.
   //Inside the callback, we set the paddle’s x position to the mouse x position.
-  //To avoid moving it outside of the screen, we force pointer.x to be between a min and a max value.
-  //This is done using the Math.Clamp method.
+  // pointer.x has min and max to keep it inside the screen.
+  // done using the Math.Clamp method.
 
   startButton = this.add
     .text(
@@ -149,20 +151,19 @@ function create() {
   //HANDLE COLLISIONS
   //add.collider expects 5 params:
 
-  // The two objects which between the collision happens
-  // A callback function that will run whenever the two objects collide
-  // A process callback, which will fire when the two objects intersect. It is similar to the callback function, but it must return a boolean. We can leave it null.
+  // 1: The two objects which between the collision happens
+  // 2: A callback function that will run on collision
+  // A process callback, which will fire when the two objects intersect. similar but  must return a boolean. can just be null
   // The context of the callback function
-  // When the ball collides with a brick, we run the brickHit function, when it collides with the paddle, we run the paddleHit function. Let’s see first what happens when we hit a brick:
+  // When the ball collides with a brick-> brickHit function, when it collides with the paddle-> paddleHit function. 
 
   this.physics.add.collider(ball, bricks, brickHit, null, this);
   this.physics.add.collider(ball, paddle, paddleHit, null, this);
 }
 
 //handles roation of berry and game over
-//We can add a rotation to our ball by setting ball.rotation, based on the value of our rotation flag. The higher the value, the faster the rotation will be.
-
-//To check whether we are about to lose a life or not, we can simply check if the ball is below the paddle. If it is, we decrease the number of lives and reset the ball’s position. If we are unlucky and there’s no more life left, we are presented with the game over message.
+//  higher the value, the faster the rotation 
+//if the ball is below the paddle->decrease the number of lives and reset the ball’s position.
 
 function update() {
   if (rotation) {
@@ -205,15 +206,20 @@ function paddleHit(ball, paddle) {
 
 //hit animation
 
-//To switch between textures we can use the setTexture method where we pass in the key of the preloaded asset. After increasing the score, we simply re-set the text to be updated. To create the animation, we can use tween.add.
+//setTexture method -> pass in the key of the preloaded asset. 
+//increase the score,  re-set the text to be updated. 
+//animation created with tween.add.
 
-// As you can see, we have a bunch of configuration options to set. targets will determine which game object will be animated. We can add easings for the animation and a duration. By setting scaleX and scaleY to 0, we can shrink it down and by using angle: 180 it will rotate it by 180° in the meantime. To stop the animation from starting as soon as the collision happens, we can also specify a delay.
-
-// Once the animation completes, we can get rid of the brick and also do a check. If there are no more bricks on the screen, we can remove the ball and display the “You won!” message.
+//Config:
+//targets  determine which game object will be animated. 
+//easings for  animation and a duration. 
+//By setting scaleX and scaleY to 0, we can shrink it down and by using angle: 180 it will rotate it by 180° in the meantime. 
+//Delay to stop the animation from starting as soon as the collision happens
+// Once the animation completes, get rid of the brick and also do a check. 
+//If no more bricks -> remove the ball and display win message.
 
 function brickHit(ball, brick) {
   brick.setTexture("destroyed");
-
   score += 5;
   scoreText.setText(`Score: ${score}`);
 
