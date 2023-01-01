@@ -21,7 +21,7 @@ const config = {
   type: Phaser.AUTO,
   width: window.innerWidth,
   height: window.innerHeight,
-  backgroundColor: "#222",
+  backgroundColor: "#bceaf7",
   physics: {
     default: "arcade",
     arcade: {
@@ -101,12 +101,12 @@ function create() {
     .text(
       this.cameras.main.centerX,
       this.cameras.main.centerY,
-      "Game over!",
+      "The tits have feasted",
       textStyle
     )
     .setOrigin(0.5)
     .setPadding(10)
-    .setStyle({ backgroundColor: "#111", fill: "#e74c3c" })
+    .setStyle({ backgroundColor: "#111", fill: "#e74c3c"})
     .setVisible(false);
 
   wonTheGameText = this.add
